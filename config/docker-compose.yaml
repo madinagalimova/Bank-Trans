@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  redpanda:
+    image: docker.redpanda.com/redpandadata/redpanda:latest
+    container_name: redpanda
+    command:
+      - redpanda
+      - start
+      - --smp
+      - "1"
+      - --reserve-memory
+      - "0M"
+      - --overprovisioned
+      - --node-id
+      - "0"
+      - --check=false
+    ports:
+      - "8081:8081"     # Admin API
+      - "19092:19092"   # Kafka API for clients
+      - "19644:9644"    # HTTP metrics
+    networks:
+      - redpanda_net
+
+networks:
+  redpanda_net:
+    driver: bridge
