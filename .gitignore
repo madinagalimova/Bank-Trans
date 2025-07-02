@@ -1,0 +1,10 @@
+/env
+*.python-version
+*.md
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+.DS_Store
+instruction.txt
