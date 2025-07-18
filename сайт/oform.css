@@ -1,0 +1,59 @@
+const dannye = [
+  { id: 1, summa: 100, val: "RUB", data: "2025-07-15" },
+  { id: 2, summa: 200, val: "USD", data: "2025-07-14" },
+  { id: 3, summa: 300, val: "RUB", data: "2025-07-16" }
+];
+
+function pokazat() {
+  const s = document.getElementById("s").value;
+  const po = document.getElementById("po").value;
+  const v = document.getElementById("v").value;
+
+  let f = dannye.filter(x =>
+    (!s || x.data >= s) &&
+    (!po || x.data <= po) &&
+    (!v || x.val === v)
+  );
+
+  let summa = f.reduce((a, b) => a + b.summa, 0);
+  let kolvo = f.length;
+  let sred = kolvo ? (summa / kolvo).toFixed(2) : 0;
+
+  document.getElementById("s1").innerText = summa;
+  document.getElementById("s2").innerText = kolvo;
+  document.getElementById("s3").innerText = sred;
+
+  let tab = document.getElementById("tab");
+  tab.innerHTML = "";
+  f.forEach(x => {
+    tab.innerHTML += <tr><td>${x.id}</td><td>${x.summa}</td><td>${x.val}</td><td>${x.data}</td></tr>;
+  });
+
+  let d1 = {};
+  f.forEach(x => d1[x.data] = (d1[x.data] || 0) + x.summa);
+  pokazChart("graf1", Object.keys(d1), Object.values(d1), "По дням");
+
+  let d2 = {};
+  f.forEach(x => d2[x.val] = (d2[x.val] || 0) + x.summa);
+  pokazChart("graf2", Object.keys(d2), Object.values(d2), "По валютам", "bar");
+}
+
+function pokazChart(id, metki, znacheniya, nazvanie, tip = "line") {
+  const ctx = document.getElementById(id).getContext("2d");
+  new Chart(ctx, {
+    type: tip,
+    data: {
+      labels: metki,
+      datasets: [{
+        label: nazvanie,
+        data: znacheniya,
+        backgroundColor: ["#3498db", "#2ecc71", "#f1c40f"],
+        borderColor: "#555",
+        borderWidth: 1
+      }]
+    },
+    options: { responsive: true }
+  });
+}
+
+pokazat();

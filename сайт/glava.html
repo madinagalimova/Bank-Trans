@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Мой Дашборд</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="shapka">
+    <h1>Транзакции</h1>
+    <div>
+      <label>С:</label><input type="date" id="s">
+      <label>По:</label><input type="date" id="po">
+      <label>Валюта:</label>
+      <select id="v">
+        <option value="">Все</option>
+        <option value="RUB">₽ RUB</option>
+        <option value="USD">$ USD</option>
+      </select>
+      <button onclick="pokazat()">Показать</button>
+    </div>
+  </div>
+
+  <div class="karty">
+    <div><h3>Сумма</h3><p id="s1">—</p></div>
+    <div><h3>Транзакций</h3><p id="s2">—</p></div>
+    <div><h3>Средняя</h3><p id="s3">—</p></div>
+  </div>
+
+  <canvas id="graf1"></canvas>
+  <canvas id="graf2"></canvas>
+
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Сумма</th><th>Валюта</th><th>Дата</th></tr>
+    </thead>
+    <tbody id="tab"></tbody>
+  </table>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
